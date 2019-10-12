@@ -1,8 +1,8 @@
-import React, { Fragment, useState, useEffect, useContext } from 'react';
+import React, { Fragment, useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
 const Login = (props) => {
-    
+
     //const AuthContext = useContext(AuthContext);
     const { loginRequest, isloading } = useContext(AuthContext)
 
@@ -10,12 +10,6 @@ const Login = (props) => {
         email: "",
         password: ""
     })
-
-    // // const [loading,setLoading] = useState(authStates.isLoading)
-
-    // useEffect(()=>{
-    //     setLoading(authStates.isLoading)
-    // },[authStates.isLoading])
 
     const onChange = (e) => {
         setFormData({
@@ -32,7 +26,7 @@ const Login = (props) => {
 
     return (
         <Fragment>
-            <h1>{(isloading)?'isLoadingisTrue':'isLoadingisFalse'}</h1>
+            <h2>{(isloading) ? 'isLoadingisTrue' : 'isLoadingisFalse'}</h2>
             <div className="container">
                 <div className="row">
                     <div className="span12">
@@ -65,10 +59,5 @@ const Login = (props) => {
             </div>
         </Fragment >
     );
-
-
 }
-
-
-
 export default Login;

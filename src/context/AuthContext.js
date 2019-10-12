@@ -7,12 +7,12 @@ export const AuthContext = createContext();
 const AuthContextProvider = (props) => {
     let [authStates, setAuthStates] = useState({
         token: localStorage.getItem('token'),
-        isAuthenticated: false,
         error: null,
         userDetails: 'empty token'
     })
 
     let [isloading, setIsLoading] = useState(false)
+    let [isAuthenticated, setIsAuthenticated] = useState(false)
 
     const loginRequest = async (formData) => {
         setIsLoading(true)
@@ -27,26 +27,26 @@ const AuthContextProvider = (props) => {
                 data: formData
             });
             //Setting Auth states here
+            await setIsAuthenticated(true)
             setAuthStates = {
                 ...authStates,
                 token: localStorage.setItem('token', response.data.token),
-                isAuthenticated: true,
                 error: null,
                 userDetails: response.data.token
             }
             console.log(`token set on local storage \n ${authStates.token}`)
         } catch (error) {
-            console.log(error.response.data)
+            console.log(error)
             setAuthStates = {
                 ...authStates,
-                error: error.response.data
+                error: error
             }
         } finally {
             setIsLoading(false)
         };
     }
     return (
-        <AuthContext.Provider value={{ authStates, loginRequest, isloading }}>
+        <AuthContext.Provider value={{ authStates, loginRequest, isloading, isAuthenticated }}>
             {props.children}
         </AuthContext.Provider>
     )
